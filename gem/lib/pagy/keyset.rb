@@ -38,14 +38,15 @@ class Pagy # :nodoc:
   class Keyset
     include InitVars
 
-    attr_reader :items, :cursor, :vars
+    attr_reader :page, :items, :cursor, :vars
 
     def initialize(scope, page: nil, **vars)
       @scope = scope
+      @page  = page
       normalize_vars(vars)
       setup_items_var
       setup_order
-      setup_cursor(page) if page
+      setup_cursor if @page
     end
 
     def next
@@ -70,8 +71,8 @@ class Pagy # :nodoc:
     end
 
     # Setup the cursor to a symbolic typecasted hash of the order columns values
-    def setup_cursor(page)
-      cursor = JSON.parse(B64.urlsafe_decode(page)).symbolize_keys
+    def setup_cursor
+      cursor = JSON.parse(B64.urlsafe_decode(@page)).symbolize_keys
       raise InternalError, 'Order and page cursor are not consistent' \
              unless cursor.keys == @order.keys
 
