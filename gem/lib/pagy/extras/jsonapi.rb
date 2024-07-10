@@ -73,12 +73,15 @@ class Pagy # :nodoc:
     # Module overriding UrlHelper
     module UrlHelperOverride
       # Override UrlHelper method
-      def pagy_set_query_params(page, vars, params)
+      def pagy_set_query_params(page, vars, query_params)
         return super unless vars[:jsonapi]
 
-        params['page'] ||= {}
-        params['page'][vars[:page_param].to_s]  = page
-        params['page'][vars[:items_param].to_s] = vars[:items] if vars[:items_extra]
+        query_params['page'] ||= {}
+        query_params['page'][vars[:page_param].to_s]  = page if page
+        query_params['page'][vars[:items_param].to_s] = vars[:items] if vars[:items_extra]
+        # :nocov:
+        query_params.delete(:page) if query_params['page'].empty?
+        # :nocov:
       end
     end
     UrlHelpers.prepend UrlHelperOverride

@@ -112,6 +112,7 @@ describe 'pagy/extras/jsonapi' do
                                 page_param: :cursor,
                                 items_param: :size)
       result = app.send(:pagy_jsonapi_links, pagy)
+      _(result).must_rematch :keyset_result
       _(result[:next]).must_be_nil
     end
   end
