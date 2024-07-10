@@ -3,7 +3,6 @@
 require_relative '../../test_helper'
 require 'pagy/extras/calendar'
 
-require_relative '../../mock_helpers/collection'
 require_relative '../../files/models/events'
 require_relative '../../mock_helpers/app'
 
