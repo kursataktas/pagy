@@ -7,7 +7,7 @@ require 'pagy/extras/countless'
 require 'pagy/extras/metadata'
 
 require_relative '../../mock_helpers/collection'
-require_relative '../../files/models'
+require_relative '../../files/models/events'
 require_relative '../../mock_helpers/app'
 
 describe 'pagy/extras/metadata' do

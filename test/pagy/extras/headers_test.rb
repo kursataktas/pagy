@@ -6,7 +6,7 @@ require 'pagy/extras/calendar'
 require 'pagy/extras/countless'
 
 require_relative '../../mock_helpers/collection'
-require_relative '../../files/models'
+require_relative '../../files/models/events'
 require_relative '../../mock_helpers/app'
 
 describe 'pagy/extras/headers' do

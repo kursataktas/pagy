@@ -9,9 +9,11 @@ end
 class Event40 < ActiveRecord::Base
 end
 
-db_path ="#{__dir__}/db/calendar.sqlite3"
+db_path ="#{__dir__}/../db/calendar.sqlite3"
 
 # Activerecord initializer
+# No logs in test
+# ActiveRecord::Base.logger = Logger.new($stdout)
 ActiveRecord::Base.establish_connection(adapter: 'sqlite3', database: db_path)
 
 # :nocov:
@@ -537,13 +539,13 @@ unless File.exist?(db_path)
   TIMES
 
   # DB seed
+  events   = []
+  event40s = []
   TIMES.each_line(chomp: true).with_index do |time, i|
     count = i + 1
-    Event.create(title: "Event ##{count}", time:)
-    Event40.create(title: "Event ##{count}", time:) if count <= 40
+    events   << { title: "Event ##{count}", time:}
+    event40s << { title: "Event ##{count}", time:} if count <= 40
   end
-
+  Event.insert_all(events)
+  Event40.insert_all(event40s)
 end
-# :nocov:
-# Down here to avoid logging the DB seed above at each restart
-# ActiveRecord::Base.logger = Logger.new($stdout)
