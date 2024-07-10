@@ -13,3 +13,9 @@ pagy/extras/jsonapi::#pagy_jsonapi_links#test_0001_returns the ordered links:
     :last: "/foo?page%5Bnumber%5D=100&page%5Bsize%5D=10"
     :prev: "/foo?page%5Bnumber%5D=2&page%5Bsize%5D=10"
     :next: "/foo?page%5Bnumber%5D=4&page%5Bsize%5D=10"
+pagy/extras/jsonapi::#pagy_jsonapi_links (keyset)#test_0001_returns the ordered links:
+  :keyset_result:
+    :first: "/foo?page%5Bcursor%5D&page%5Bsize%5D=10"
+    :last:
+    :prev:
+    :next: "/foo?page%5Bcursor%5D=eyJpZCI6MjB9&page%5Bsize%5D=10"

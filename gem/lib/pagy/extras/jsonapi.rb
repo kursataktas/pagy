@@ -24,10 +24,17 @@ class Pagy # :nodoc:
 
       # Return the jsonapi links
       def pagy_jsonapi_links(pagy, **opts)
-        { first: pagy_url_for(pagy, 1,         **opts),
-          last:  pagy_url_for(pagy, pagy.last, **opts),
-          prev:  pagy.prev ? pagy_url_for(pagy, pagy.prev, **opts) : nil,
-          next:  pagy.next ? pagy_url_for(pagy, pagy.next, **opts) : nil }
+        if defined?(Pagy::Keyset) && pagy.instance_of?(Pagy::Keyset)
+          { first: pagy_url_for(pagy, nil, **opts),
+            last: nil,
+            prev: nil,
+            next:  pagy.next ? pagy_url_for(pagy, pagy.next, **opts) : nil }
+        else
+          { first: pagy_url_for(pagy, 1, **opts),
+            last:  pagy_url_for(pagy, pagy.last, **opts),
+            prev:  pagy.prev ? pagy_url_for(pagy, pagy.prev, **opts) : nil,
+            next:  pagy.next ? pagy_url_for(pagy, pagy.next, **opts) : nil }
+        end
       end
 
       # Should skip the jsonapi
@@ -40,9 +47,9 @@ class Pagy # :nodoc:
       # Override the Backend method
       def pagy_get_page(vars)
         return super if pagy_skip_jsonapi?(vars)
-        return 1 if params[:page].nil?
+        return if params[:page].nil?
 
-        [params[:page][vars[:page_param] || DEFAULT[:page_param]].to_i, 1].max
+        params[:page][vars[:page_param] || DEFAULT[:page_param]]
       end
     end
     Backend.prepend BackendOverride
