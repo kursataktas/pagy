@@ -16,16 +16,10 @@ class Pagy # :nodoc:
 
     # Sub-method called only by #pagy_keyset: here for easy customization of variables by overriding
     def pagy_keyset_get_vars(vars)
-      pagy_set_items_from_params(vars) if defined?(ItemsExtra)
-      vars[:page] ||= pagy_get_page(vars)
-      vars
-    end
-
-    # Get the page from the params
-    # Override the backend method
-    # Overridable by the jsonapi extra
-    def pagy_get_page(vars)
-      params[vars[:page_param] || DEFAULT[:page_param]]
+      vars.tap do |v|
+        v[:page]  ||= pagy_get_page(v)
+        v[:items] ||= pagy_get_items(v)
+      end
     end
   end
   Backend.prepend KeysetExtra

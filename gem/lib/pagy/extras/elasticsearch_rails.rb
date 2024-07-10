@@ -54,7 +54,7 @@ class Pagy # :nodoc:
         options, *called = pagy_search_args
         vars             = pagy_elasticsearch_rails_get_vars(nil, vars)
         options[:size]   = vars[:items]
-        options[:from]   = vars[:items] * (vars[:page] - 1)
+        options[:from]   = vars[:items] * ((vars[:page] || 1) - 1)
         response         = model.send(DEFAULT[:elasticsearch_rails_search], query_or_payload, **options)
         vars[:count]     = ElasticsearchRailsExtra.total_count(response)
 
