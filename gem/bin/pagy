@@ -2,7 +2,7 @@
 # frozen_string_literal: true
 
 VERSION = '8.6.3'
-APPS    = %w[repro rails demo calendar].freeze
+APPS    = %w[repro rails demo calendar keyset].freeze
 LINUX   = RbConfig::CONFIG['host_os'].include?('linux')
 HOST    = '0.0.0.0'
 PORT    = '8000'
@@ -17,6 +17,7 @@ opts = Optimist.options do
       rails                      Reproduce rails related issues
       demo                       Showcase all the helpers and styles
       calendar                   Showcase the calendar; reproduce related issues
+      keyset                     Showcase the keyset pagination; reproduce related issues
     USAGE
       pagy APP [options]         Showcase APP from the installed gem
       pagy clone APP             Clone APP to the current dir

@@ -2,9 +2,12 @@
 # frozen_string_literal: true
 
 require 'pathname'
+require_relative 'pagy/init_vars'
 
 # Core class
 class Pagy
+  include InitVars
+
   VERSION = '8.6.3'
 
   # Gem root pathname to get the path of Pagy files stylesheets, javascripts, apps, locales, etc.
@@ -79,26 +82,6 @@ class Pagy
   # Label for the current page. Allow the customization of the output (overridden by the calendar extra)
   def label
     @page.to_s
-  end
-
-  protected
-
-  # Apply defaults, cleanup blanks and set @vars
-  def normalize_vars(vars)
-    @vars = DEFAULT.merge(vars.delete_if { |k, v| DEFAULT.key?(k) && (v.nil? || v == '') })
-  end
-
-  # Setup and validates the passed vars: var must be present and value.to_i must be >= to min
-  def setup_vars(name_min)
-    name_min.each do |name, min|
-      raise VariableError.new(self, name, ">= #{min}", @vars[name]) \
-            unless @vars[name]&.respond_to?(:to_i) && instance_variable_set(:"@#{name}", @vars[name].to_i) >= min
-    end
-  end
-
-  # Setup @items (overridden by the gearbox extra)
-  def setup_items_var
-    setup_vars(items: 1)
   end
 
   # Setup @offset (overridden by the gearbox extra)
