@@ -10,7 +10,7 @@ class Pagy # :nodoc:
 
     # Return Pagy::Keyset object and paginated records
     def pagy_keyset(scope, **vars)
-      pagy = Keyset.new(scope:, **pagy_keyset_get_vars(vars))
+      pagy = Keyset.new(scope, **pagy_keyset_get_vars(vars))
       [pagy, pagy.records]
     end
 

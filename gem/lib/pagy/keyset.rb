@@ -40,7 +40,7 @@ class Pagy # :nodoc:
 
     attr_reader :items, :cursor, :vars
 
-    def initialize(scope:, page: nil, **vars)
+    def initialize(scope, page: nil, **vars)
       @scope = scope
       normalize_vars(vars)
       setup_items_var
