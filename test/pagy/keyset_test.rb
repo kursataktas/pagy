@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 require_relative '../test_helper'
-require_relative '../files/models/pets'
+require_relative '../files/models'
 require_relative '../../gem/lib/pagy/b64'
 
 require 'pagy/keyset'

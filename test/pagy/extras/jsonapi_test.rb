@@ -6,7 +6,7 @@ require 'pagy/extras/jsonapi'
 require 'pagy/extras/keyset'
 
 require_relative '../../mock_helpers/collection'
-require_relative '../../files/models/pets'
+require_relative '../../files/models'
 require_relative '../../mock_helpers/app'
 
 describe 'pagy/extras/jsonapi' do

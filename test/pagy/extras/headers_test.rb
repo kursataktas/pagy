@@ -8,6 +8,7 @@ require 'pagy/extras/countless'
 require_relative '../../mock_helpers/collection'
 require_relative '../../files/models/events'
 require_relative '../../mock_helpers/app'
+require_relative '../../files/models'
 
 describe 'pagy/extras/headers' do
   describe '#pagy_headers' do

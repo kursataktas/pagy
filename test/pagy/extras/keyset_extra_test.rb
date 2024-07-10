@@ -4,7 +4,7 @@ require_relative '../../test_helper'
 require 'pagy/extras/keyset'
 require 'pagy/extras/items'
 
-require_relative '../../files/models/pets'
+require_relative '../../files/models'
 require_relative '../../mock_helpers/app'
 
 describe 'pagy/extras/keyset' do
