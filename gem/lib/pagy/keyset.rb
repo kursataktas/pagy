@@ -2,43 +2,15 @@
 # frozen_string_literal: true
 
 require 'json'
-require 'active_support/hash_with_indifferent_access'
 require_relative 'b64'
 require_relative 'init_vars'
 
 class Pagy # :nodoc:
   # Implement wicked-fast, no-frills keyset pagination for big data
-  #
-  # The Pagy Keyset pagination does not waste resources and code complexity
-  # checking your scope nor your table config at every request.
-  #
-  # That means that you have to be sure that your scope is right,
-  # and that your tables have the right indices (for performance).
-  # You do it once during development, not pagy at each request. ;)
-  #
-  # Scope
-  # - You have to pass an ordered scope or pass a :reorder hash
-  #   - The concatenation of the order columns must be unique:
-  #     add the primary key as the last order column as a tie-breaker
-  #     if the concatenation of the order columns might not be unique
-  #
-  # Constraints
-  # As for any keyset pagination:
-  #   - You don't know the page count
-  #   - The pages have no number
-  #   - You cannot jump to an arbitrary page
-  #   - You can only get the next page
-  #   - And you know that you reached the end of the collection when pagy.next.nil?
-  # As for the Pagy Offset pagination:
-  #   - You paginate only forward. For backward... just reverse the order
-  #     in your scope and paginate forward in the reversed order.
-
-  # Requires activerecord or sequel (WIP)
-  # This should work also with the items, headers, json_api extras (WIP)
   class Keyset
     include InitVars
 
-    attr_reader :page, :items, :cursor, :vars
+    attr_reader :page, :vars
 
     def initialize(scope, page: nil, **vars)
       @scope = scope
@@ -62,7 +34,7 @@ class Pagy # :nodoc:
     # Query the DB for the page of records
     def records
       @records ||= begin
-        @scope  = @scope.select(*@order.keys) unless @scope.select_values.empty?
+        @scope  = @scope.select(*@order.keys.map(&:to_sym)) unless @scope.select_values.empty?
         @scope  = @scope.where((@vars[:where_query] || where_query), @cursor) if @cursor
         records = @scope.limit(@items + 1).to_a
         @more   = records.size > @items && !records.pop.nil?
@@ -72,17 +44,17 @@ class Pagy # :nodoc:
 
     # Setup the cursor to a symbolic typecasted hash of the order columns values
     def setup_cursor
-      cursor = JSON.parse(B64.urlsafe_decode(@page)).symbolize_keys
+      cursor = JSON.parse(B64.urlsafe_decode(@page))
       raise InternalError, 'Order and page cursor are not consistent' \
              unless cursor.keys == @order.keys
 
-      @cursor = @scope.model.new(cursor).slice(cursor.keys).symbolize_keys
+      @cursor = @scope.model.new(cursor).slice(cursor.keys)
     end
 
     # Setup the order from :reorder or the :scope
     def setup_order
       @order = @scope.order_values.each_with_object({}) do |node, order|
-                 order[node.value.name.to_sym] = node.direction
+                 order[node.value.name] = node.direction
                end
       raise InternalError, 'The :scope must be ordered' if @order.nil? || @order.empty?
     end

@@ -30,22 +30,22 @@ describe 'Pagy::Keyset' do
   describe '#setup_order' do
     it 'extracts the scope order' do
       pagy = Pagy::Keyset.new(Pet.order(:id))
-      _(pagy.instance_variable_get(:@order)).must_equal({id: :asc})
+      _(pagy.instance_variable_get(:@order)).must_equal({'id' => :asc})
       pagy = Pagy::Keyset.new(Pet.order(id: :desc))
-      _(pagy.instance_variable_get(:@order)).must_equal({id: :desc})
+      _(pagy.instance_variable_get(:@order)).must_equal({'id' => :desc})
       pagy = Pagy::Keyset.new(Pet.order(:id, animal: :desc))
-      _(pagy.instance_variable_get(:@order)).must_equal({id: :asc, animal: :desc})
+      _(pagy.instance_variable_get(:@order)).must_equal({'id' => :asc, 'animal'=> :desc})
     end
   end
   describe 'handles the page/cursor' do
     it 'handles the page/cursor for the first page' do
       pagy = Pagy::Keyset.new(Pet.order(:id), items: 10)
-      _(pagy.cursor).must_be_nil
+      _(pagy.instance_variable_get(:@cursor)).must_be_nil
       _(pagy.next).must_equal "eyJpZCI6MTB9"
     end
     it 'handles the page/cursor for the second page' do
       pagy = Pagy::Keyset.new(Pet.order(:id), items: 10, page: "eyJpZCI6MTB9")
-      _(pagy.cursor).must_equal({id: 10})
+      _(pagy.instance_variable_get(:@cursor)).must_equal({'id' => 10})
       _(pagy.records.first.id).must_equal 11
       _(pagy.next).must_equal "eyJpZCI6MjB9"
     end
