@@ -14,27 +14,27 @@ describe 'Pagy::Keyset' do
     end
     it 'raises ArgumentError without arguments' do
       err = assert_raises(Pagy::InternalError) { Pagy::Keyset.new(Pet.all) }
-      assert_match(/The :scope must be ordered/, err.message)
+      assert_match(/the set must be ordered/, err.message)
     end
     it 'is an instance of Pagy::Keyset' do
       _(Pagy::Keyset.new(Pet.order(:id))).must_be_instance_of Pagy::Keyset
     end
-    it 'raises Pagy::InternalError for inconsistent page/cursor' do
+    it 'raises Pagy::InternalError for inconsistent page/keyset' do
       page_animal_id = Pagy::B64.urlsafe_encode({animal: 'dog', id: 23}.to_json)
       err = assert_raises(Pagy::InternalError) do
         Pagy::Keyset.new(Pet.order(:id), items: 10, page: page_animal_id)
       end
-      assert_match(/Order and page cursor are not consistent/, err.message)
+      assert_match(/page and keyset are not consistent/, err.message)
     end
   end
   describe '#setup_order' do
     it 'extracts the scope order' do
       pagy = Pagy::Keyset.new(Pet.order(:id))
-      _(pagy.instance_variable_get(:@order)).must_equal({'id' => :asc})
+      _(pagy.instance_variable_get(:@keyset)).must_equal({'id' => :asc})
       pagy = Pagy::Keyset.new(Pet.order(id: :desc))
-      _(pagy.instance_variable_get(:@order)).must_equal({'id' => :desc})
+      _(pagy.instance_variable_get(:@keyset)).must_equal({'id' => :desc})
       pagy = Pagy::Keyset.new(Pet.order(:id, animal: :desc))
-      _(pagy.instance_variable_get(:@order)).must_equal({'id' => :asc, 'animal'=> :desc})
+      _(pagy.instance_variable_get(:@keyset)).must_equal({'id' => :asc, 'animal'=> :desc})
     end
   end
   describe 'handles the page/cursor' do
@@ -59,7 +59,7 @@ describe 'Pagy::Keyset' do
       scope = Pet.order(:animal, :name, :id).select(:name)
       pagy  = Pagy::Keyset.new(scope, items: 10)
       pagy.records
-      _(pagy.instance_variable_get(:@scope).select_values.sort).must_equal %i[animal name id].sort
+      _(pagy.instance_variable_get(:@set).select_values.sort).must_equal %i[animal name id].sort
     end
     it 'use the :row_comparison' do
       pagy = Pagy::Keyset.new(Pet.order(:animal, :name, :id),
