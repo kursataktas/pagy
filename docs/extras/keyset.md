@@ -8,10 +8,11 @@ categories:
 # Keyset Extra
 
 Paginate with the Pagy keyset pagination technique. This is a tiny wrapper around the 
-[Pagy::Keyset class](/docs/api/keyset.md) that implements the actual pagination.
+[Pagy::Keyset class](/docs/api/keyset.md) that implements the actual pagination. Please refer to the class documentation for a fuller undersanding of keyset pagination:
 
-This extra adds a `pagy_keyset` constructor method that can be used in your controllers and provides the automatic setting of the 
-variables from the request `params`.
+[!ref Keyset Pagination: Concepts and Overview](/docs/api/keyset.md)
+
+This extra adds a `pagy_keyset` constructor method that can be used in your controllers and provides the automatic setting of the variables from the request `params`.
 
 ## Synopsis
 
