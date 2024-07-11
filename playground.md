@@ -105,6 +105,24 @@ _Run `pagy clone calendar` to inspect the app file._
 
 If you need to reproduce any calendar related issue, you can follow the same usage as the [Repro App](#1-repro-app).
 
+#### 5. Keyset App
+
+This is the interactive showcase/repro for the keyset extra:
+
+!!!success Try it now!
+
+Run the interactive demo from your terminal:
+
+```sh
+pagy keyset
+```
+
+...and point your browser to http://0.0.0.0:8000
+!!!
+
+_Run `pagy clone keyset` to inspect the app file._
+
+
 ### Troubleshooting
 
 ==- Bundler inline
