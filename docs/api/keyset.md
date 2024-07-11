@@ -7,7 +7,7 @@ category:
 
 # Pagy::Keyset
 
-Implement wicked-fast, no-frills keyset pagination for big data.
+Implement wicked-fast, keyset pagination for big data.
 
 !!!  
 
