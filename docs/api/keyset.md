@@ -18,22 +18,31 @@ class directly because it is required and used internally by the [keyset extra](
 
 ## Concept
 
-The "Keyset" pagination, also known as "SQL Seek Method" (and often, improperly called "Cursor" pagination) is a tecnique that totally avoids the slowness of querying pages deep into the collection (i.e. when the `offset` is a big number).
+The "Keyset" pagination, also known as "SQL Seek Method" (and often, improperly called "Cursor" pagination) is a tecnique that avoids the inevitable slowness of querying pages deep into a collection (i.e. when `offset` is a big number, you're going to get slower queries).
 
-This tecnique comes with that huge advantage and a set of limitations that makes it particularly useful for APIs and pretty useless for UIs. 
+
+### When to use keyset? Use with:
+
+
+!!!success Large datasets and APIs
+!!!
+
+
+!!!danger Large datasets and UIs 
+Do not use with UIs. Because you will only be able to go forward one page (if one exists).
+!!!
+
 
 !!!info
 
-With the regular `offset` pagination, your UI can perfectly handle also big data, by simply limiting the `:max_pages` (variable) 
-that allows to serve, effectively avoiding the problem, albeit limiting the browsing to a the initial pages of the collection. 
-When you have to serve millions of records, that is not an option, so that is why you use pagy keyset. 
+With the regular `offset` pagination, your UI can perfectly handle also big data, by simply limiting the `:max_pages` (variable) that allows to serve something relatively efficiently, effectively avoiding the problem, albeit limiting the browsing to a the initial pages of the collection. When you have to serve millions of records, that is not an option, so that is why you use pagy keyset. 
 
 !!!
 ## Overview
 
-Pagy Keyset pagination does not waste resources and code complexity checking your scope nor your table config at every request.
+Pagy Keyset pagination does not waste resources and code complexity checking your scope and your table config at every request.
 
-That means that you have to be sure that your scope is right, and that your tables have the right indices (for performance). You do it once during development, and pagy will be fast at each request. ;)
+That means that you have to be sure that your scope is right, and that your tables have the right indices (for performance). You do it once during development, and pagy will be fast at each request. :smile:
 
 ### Set
 
