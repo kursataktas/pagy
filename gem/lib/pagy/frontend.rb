@@ -57,9 +57,9 @@ class Pagy
                 when Integer
                   a.(item)
                 when String
-                  %(<a role="link" aria-disabled="true" aria-current="page" class="current">#{pagy.label_for(item)}</a>)
+                  %(<a #{vars[:anchor_string]} role="link" aria-disabled="true" aria-current="page" class="current">#{pagy.label_for(item)}</a>)
                 when :gap
-                  %(<a role="link" aria-disabled="true" class="gap">#{pagy_t('pagy.gap')}</a>)
+                  %(<a #{vars[:anchor_string]} role="link" aria-disabled="true" class="gap">#{pagy_t('pagy.gap')}</a>)
                 else
                   raise InternalError, "expected item types in series to be Integer, String or :gap; got #{item.inspect}"
                 end
