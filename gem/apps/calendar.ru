@@ -38,7 +38,7 @@ require 'active_record'
 OUTPUT = Rails.env.showcase? ? IO::NULL : $stdout
 
 # Rails config
-class Calendar < Rails::Application # :nodoc:
+class PagyCalendar < Rails::Application # :nodoc:
   config.root = __dir__
   config.session_store :cookie_store, key: 'cookie_store_key'
   Rails.application.credentials.secret_key_base = 'absolute_secret'
@@ -79,6 +79,9 @@ end
 
 # Models
 class Event < ActiveRecord::Base
+end
+
+class Calendar < ActiveRecord::Base
 end
 
 # Helpers
@@ -742,4 +745,4 @@ TIMES.each_line(chomp: true).with_index do |time, i|
 end
 Event.insert_all(events)
 
-run Calendar
+run PagyCalendar
