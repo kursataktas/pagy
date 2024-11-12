@@ -9,7 +9,8 @@
 [![MIT license](https://img.shields.io/badge/License-MIT-mit.svg?colorA=1f7a1f&colorB=2aa22a)](http://opensource.org/licenses/MIT)</span> <span>
 [![Commits](https://img.shields.io/github/commit-activity/y/ddnexus/pagy.svg?label=Commits&colorA=004d99&colorB=0073e6)](https://github.com/ddnexus/pagy/commits/master/)</span> <span>
 [![Downloads](https://img.shields.io/gem/dt/pagy.svg?label=Downloads&colorA=004d99&colorB=0073e6)](https://rubygems.org/gems/pagy)</span> <span>
-[![Stars](https://shields.io/github/stars/ddnexus/pagy?style=social)](https://github.com/ddnexus/pagy/stargazers)</span>
+[![Stars](https://shields.io/github/stars/ddnexus/pagy?style=social)](https://github.com/ddnexus/pagy/stargazers)</span> <span>
+[![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20Pagy%20Guru-006BFF)](https://gurubase.io/g/pagy)</span>
 
 ## 🏆 The Best Pagination Ruby Gem 🥇
 
@@ -54,7 +55,7 @@ See the [Detailed Gems Comparison](http://ddnexus.github.io/pagination-compariso
 - **It works in any environment**
   With Rack frameworks (Rails, Sinatra, Padrino, etc.) or in pure ruby without Rack
 - **It works with any collection**
-  With any ORM, any DB, any search
+gem, [elasticsearch_rails](https://ddnexus.github.io/pagy/docs/extras/elasticsearch_rails), [meilisearch](https://ddnexus.github.io/pagy/docs/extras/meilisearch), [searchkick](https://ddnexus.github.io/pagy/docs/extras/searchkick), `ransack`,
   gem, [elasticsearch_rails](https://ddnexus.github.io/pagy/docs/extras/elasticsearch_rails), [meilisearch](https://ddnexus.github.io/pagy/docs/extras/meilisearch), [searchkick](https://ddnexus.github.io/pagy/docs/extras/searchkick), `ransack`,
   and just about any list, even if you cannot count it
 - **It supports all kinds of pagination**
